@@ -2601,7 +2601,11 @@ CLEANUP:
  * INPUT STATES: SR_RECOGNIZER_INTERNAL_BOS_DETECTION, SR_RECOGNIZER_INTERNAL_EOS_DETECTION
  * OUTPUT STATES: same or SR_RECOGNIZER_INTERNAL_EOI
  */
+#ifdef __clang__ /* FIXME workaround for clang bug (errors out when building) -- remove once fixed */
+static ESR_ReturnCode canPushAudioIntoRecognizer(SR_RecognizerImpl* impl)
+#else
 PINLINE ESR_ReturnCode canPushAudioIntoRecognizer(SR_RecognizerImpl* impl)
+#endif
 {
   ESR_ReturnCode rc;
 
@@ -2654,9 +2658,15 @@ CLEANUP:
  * INPUT STATES: SR_RECOGNIZER_INTERNAL_BOS_DETECTION, SR_RECOGNIZER_INTERNAL_EOS_DETECTION
  * OUTPUT STATES: same
  */
+#ifdef __clang__ /* FIXME workaround for clang bug (errors out when building) -- remove once fixed */
+static ESR_ReturnCode pushAudioIntoRecognizer(SR_RecognizerImpl* impl, SR_RecognizerStatus* status,
+    SR_RecognizerResultType* type,
+    SR_RecognizerResult* result)
+#else
 PINLINE ESR_ReturnCode pushAudioIntoRecognizer(SR_RecognizerImpl* impl, SR_RecognizerStatus* status,
     SR_RecognizerResultType* type,
     SR_RecognizerResult* result)
+#endif
 {
   size_t count;
   ESR_ReturnCode rc;
@@ -2780,9 +2790,15 @@ PINLINE ESR_ReturnCode generateFrameStats(SR_RecognizerImpl* impl, SR_Recognizer
  * INPUT STATES: SR_RECOGNIZER_INTERNAL_EOS_DETECTION
  * OUTPUT STATES: same or SR_RECOGNIZER_INTERNAL_EOI, SR_RECOGNIZER_INTERNAL_EOS
  */
+#ifdef __clang__ /* FIXME workaround for clang bug (errors out when building) -- remove once fixed */
 PINLINE ESR_ReturnCode generatePatternFromFrame(SR_RecognizerImpl* impl, SR_RecognizerStatus* status,
     SR_RecognizerResultType* type,
     SR_RecognizerResult* result)
+#else
+PINLINE ESR_ReturnCode generatePatternFromFrame(SR_RecognizerImpl* impl, SR_RecognizerStatus* status,
+    SR_RecognizerResultType* type,
+    SR_RecognizerResult* result)
+#endif
 {
   SR_AcousticModelsImpl* modelsImpl;
   ESR_ReturnCode rc;
@@ -2889,9 +2905,15 @@ CLEANUP:
  * INPUT STATES: SR_RECOGNIZER_INTERNAL_EOI
  * OUTPUT STATES: same or SR_RECOGNIZER_INTERNAL_EOS
  */
+#ifdef __clang__ /* FIXME workaround for clang bug (errors out when building) -- remove once fixed */
+static ESR_ReturnCode generatePatternFromFrameEOI(SR_RecognizerImpl* impl, SR_RecognizerStatus* status,
+    SR_RecognizerResultType* type,
+    SR_RecognizerResult* result)
+#else
 PINLINE ESR_ReturnCode generatePatternFromFrameEOI(SR_RecognizerImpl* impl, SR_RecognizerStatus* status,
     SR_RecognizerResultType* type,
     SR_RecognizerResult* result)
+#endif
 {
   SR_AcousticModelsImpl* modelsImpl;
   ESR_ReturnCode rc;
